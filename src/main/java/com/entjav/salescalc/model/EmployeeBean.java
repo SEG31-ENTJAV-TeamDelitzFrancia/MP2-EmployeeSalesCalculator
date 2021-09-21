@@ -2,6 +2,8 @@ package com.entjav.salescalc.model;
 
 import java.io.Serializable;
 
+import javax.servlet.ServletConfig;
+
 public class EmployeeBean implements Serializable {
 
 	/**
@@ -9,8 +11,8 @@ public class EmployeeBean implements Serializable {
 	 */
 	private static final long serialVersionUID = -1224771227435510280L;
 	
-	// -- constant variables -- //
-	private final double ADDITIONAL_SALES_COMMISSION = 0.075;
+	// -- init config values -- //
+	private ServletConfig conf;
 	
 	// -- user inputs -- //
 	private String employeeID;
@@ -25,14 +27,17 @@ public class EmployeeBean implements Serializable {
 	
 	// -- constructor -- //
 	public EmployeeBean() {
-		employeeID = "nul";
-		employeeName = "nul";
-		salesCode = "nul";
+		employeeID = "";
+		employeeName = "";
+		salesCode = "";
 		salesAmount = 0;
 		
 		takeHomePay = 0;
 		grossEarnedAmount = 0;
 		salesCommission = 0;
+	}
+	public EmployeeBean(ServletConfig config) {
+		this.conf = config;
 	}
 
 	// -- input variables -- //
@@ -104,7 +109,7 @@ public class EmployeeBean implements Serializable {
 	
 	public void computeSalesAdditionalCommisson() {
 		if (salesAmount >= 2500) {
-			salesCommission = ADDITIONAL_SALES_COMMISSION * salesAmount;
+			salesCommission = Double.parseDouble(conf.getInitParameter("ADDITIONAL_SALES_COMMISSION")) * salesAmount;
 		}
 	}
 	
