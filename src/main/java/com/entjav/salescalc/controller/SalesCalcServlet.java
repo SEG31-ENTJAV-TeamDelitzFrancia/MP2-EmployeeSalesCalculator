@@ -19,31 +19,38 @@ public class SalesCalcServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	
 		
 		// Init MIME Type
 		res.setContentType("text/html");
 		
 		// Data Extraction
 		
-		 String employeeID = req.getParameter("employeeID");
-		 String employeeName = req.getParameter("employeeName");
-		 String salesCode = req.getParameter("salesCode");
-		 double salesAmount  = Double.parseDouble(req.getParameter("salesAmount"));
-		 
-
-		
-		// Create Bean Singleton
+		String employeeID = req.getParameter("employeeID");
+		String employeeName = req.getParameter("employeeName");
+		String salesCode = req.getParameter("salesCode");
+		double salesAmount  = Double.parseDouble(req.getParameter("salesAmount"));
+			
+		// Create Bean
 		EmployeeBean employee = new EmployeeBean(getServletConfig());
 		
 		employee.setEmployeeID(employeeID);
 		employee.setEmployeeName(employeeName);
 		employee.setSalesCode(salesCode);
 		employee.setSalesAmount(salesAmount);
-		 
-		employee.computeTakeHomePay();
+	
+		// error validation
 		
+		if(salesAmount < 1) {
+			Display.printHumanError(res, "Invalid Sales Amount!, should be at lest PHP 1.00");
+		}
+		else if(!employee.computeTakeHomePay()) {
+			Display.printHumanError(res, "Invalid Sales Code! Should only be the ones specified\n"
+					+ "(A, B, or C)");
+		}
+		else {
 		Display.printPayrollReceipt(res, employee);
-			
+		}
 	}
 
 }

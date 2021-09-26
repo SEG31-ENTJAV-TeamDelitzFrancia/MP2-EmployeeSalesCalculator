@@ -108,12 +108,12 @@ public class EmployeeBean implements Serializable {
 	}
 	
 	public void computeSalesAdditionalCommisson() {
-		if (salesAmount >= 2500) {
+		if (salesAmount > 2500) {
 			salesCommission = Double.parseDouble(conf.getInitParameter("ADDITIONAL_SALES_COMMISSION")) * salesAmount;
 		}
 	}
 	
-	public void computeTakeHomePay() {
+	public boolean computeTakeHomePay() {
 		
 		computeSalesAdditionalCommisson();
 		
@@ -123,8 +123,11 @@ public class EmployeeBean implements Serializable {
 				computeSalesCodeBravo();
 		else if(salesCode.equalsIgnoreCase("c"))
 				computeSalesCodeCharlie();
+		else
+			return false;
 		
 		takeHomePay = grossEarnedAmount + salesCommission;
+		return true;
 		
 	}
 	

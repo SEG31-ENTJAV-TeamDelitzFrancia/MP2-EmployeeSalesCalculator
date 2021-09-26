@@ -33,3 +33,13 @@
 .money {
   text-align: right;
 }
+.box-error {
+  border: #ff8d8d solid 10px;
+  padding: 10px 2.618rem;
+}
+.text-error-primary {
+  color: #ff4e4e;
+}
+.text-error-secondary {
+  color: rgb(100, 0, 0);
+}
