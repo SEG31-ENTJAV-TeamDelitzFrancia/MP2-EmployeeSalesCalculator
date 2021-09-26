@@ -117,21 +117,12 @@ public class EmployeeBean implements Serializable {
 		
 		computeSalesAdditionalCommisson();
 		
-		switch(salesCode) {
-			case "A":
-			case "a":
+		if(salesCode.equalsIgnoreCase("a")) 
 				computeSalesCodeAlpha();
-			case "B":
-			case "b":
+		else if(salesCode.equalsIgnoreCase("b"))
 				computeSalesCodeBravo();
-			case "C":
-			case "c":
+		else if(salesCode.equalsIgnoreCase("c"))
 				computeSalesCodeCharlie();
-				
-			default:
-				System.err.println("Error! This isn't supposed to happen..");
-				
-		}
 		
 		takeHomePay = grossEarnedAmount + salesCommission;
 		

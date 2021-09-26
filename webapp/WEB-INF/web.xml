@@ -7,7 +7,7 @@
   
   <servlet>
   	<servlet-name>SalesCalcServlet</servlet-name>
-  	<servlet-class>com.entjav.salecalc.controller.SalesCalcServlet</servlet-class>
+  	<servlet-class>com.entjav.salescalc.controller.SalesCalcServlet</servlet-class>
   	
   	<init-param>
 		<param-name>ADDITIONAL_SALES_COMMISSION</param-name>

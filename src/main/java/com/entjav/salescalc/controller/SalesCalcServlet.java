@@ -1,17 +1,16 @@
 package com.entjav.salescalc.controller;
 
 import java.io.IOException;
-import javax.servlet.ServletConfig;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.entjav.salescalc.model.EmployeeBean;
+import com.entjav.salescalc.view.Display;
 
-
-@WebServlet("/calcsales.action")
 public class SalesCalcServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -25,27 +24,26 @@ public class SalesCalcServlet extends HttpServlet {
 		res.setContentType("text/html");
 		
 		// Data Extraction
-		/*
-		 * String employeeID;
-		 * String employeeName;
-		 * String salesCode;
-		 * double salesAmount;
-		 * */
-		// TODO: awaiting for HTML
+		
+		 String employeeID = req.getParameter("employeeID");
+		 String employeeName = req.getParameter("employeeName");
+		 String salesCode = req.getParameter("salesCode");
+		 double salesAmount  = Double.parseDouble(req.getParameter("salesAmount"));
+		 
+
 		
 		// Create Bean Singleton
 		EmployeeBean employee = new EmployeeBean(getServletConfig());
-		/*
-		 * employeeID = employee.setEmployeeID();
-		 * employeeName = employee.setEmployeeName();
-		 * salesCode = employee.setSalesCode();
-		 * salesAmount = Double.parseDouble(employee.setSalesAmount());
-		 * */
 		
-		// employee.computeTakeHomePay();
+		employee.setEmployeeID(employeeID);
+		employee.setEmployeeName(employeeName);
+		employee.setSalesCode(salesCode);
+		employee.setSalesAmount(salesAmount);
+		 
+		employee.computeTakeHomePay();
 		
-		// TODO: Print Take Home Pay
-		
+		Display.printPayrollReceipt(res, employee);
+			
 	}
 
 }
