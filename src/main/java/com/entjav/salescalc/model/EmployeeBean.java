@@ -6,9 +6,6 @@ import javax.servlet.ServletConfig;
 
 public class EmployeeBean implements Serializable {
 
-	/**
-	 * Auto-generated serial version UID for Employee Class (cuz why not bruh)
-	 */
 	private static final long serialVersionUID = -1224771227435510280L;
 	
 	// -- init config values -- //
