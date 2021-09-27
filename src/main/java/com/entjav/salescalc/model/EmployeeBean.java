@@ -6,9 +6,6 @@ import javax.servlet.ServletConfig;
 
 public class EmployeeBean implements Serializable {
 
-	/**
-	 * Auto-generated serial version UID for Employee Class (cuz why not bruh)
-	 */
 	private static final long serialVersionUID = -1224771227435510280L;
 	
 	// -- init config values -- //
@@ -108,32 +105,26 @@ public class EmployeeBean implements Serializable {
 	}
 	
 	public void computeSalesAdditionalCommisson() {
-		if (salesAmount >= 2500) {
+		if (salesAmount > 2500) {
 			salesCommission = Double.parseDouble(conf.getInitParameter("ADDITIONAL_SALES_COMMISSION")) * salesAmount;
 		}
 	}
 	
-	public void computeTakeHomePay() {
+	public boolean computeTakeHomePay() {
 		
 		computeSalesAdditionalCommisson();
 		
-		switch(salesCode) {
-			case "A":
-			case "a":
+		if(salesCode.equalsIgnoreCase("a")) 
 				computeSalesCodeAlpha();
-			case "B":
-			case "b":
+		else if(salesCode.equalsIgnoreCase("b"))
 				computeSalesCodeBravo();
-			case "C":
-			case "c":
+		else if(salesCode.equalsIgnoreCase("c"))
 				computeSalesCodeCharlie();
-				
-			default:
-				System.err.println("Error! This isn't supposed to happen..");
-				
-		}
+		else
+			return false;
 		
 		takeHomePay = grossEarnedAmount + salesCommission;
+		return true;
 		
 	}
 	

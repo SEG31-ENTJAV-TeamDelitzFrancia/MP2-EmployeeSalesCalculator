@@ -1,17 +1,16 @@
 package com.entjav.salescalc.controller;
 
 import java.io.IOException;
-import javax.servlet.ServletConfig;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.entjav.salescalc.model.EmployeeBean;
+import com.entjav.salescalc.view.Display;
 
-
-@WebServlet("/calcsales.action")
 public class SalesCalcServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -20,32 +19,38 @@ public class SalesCalcServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	
 		
 		// Init MIME Type
 		res.setContentType("text/html");
 		
 		// Data Extraction
-		/*
-		 * String employeeID;
-		 * String employeeName;
-		 * String salesCode;
-		 * double salesAmount;
-		 * */
-		// TODO: awaiting for HTML
 		
-		// Create Bean Singleton
+		String employeeID = req.getParameter("employeeID");
+		String employeeName = req.getParameter("employeeName");
+		String salesCode = req.getParameter("salesCode");
+		double salesAmount  = Double.parseDouble(req.getParameter("salesAmount"));
+			
+		// Create Bean
 		EmployeeBean employee = new EmployeeBean(getServletConfig());
-		/*
-		 * employeeID = employee.setEmployeeID();
-		 * employeeName = employee.setEmployeeName();
-		 * salesCode = employee.setSalesCode();
-		 * salesAmount = Double.parseDouble(employee.setSalesAmount());
-		 * */
 		
-		// employee.computeTakeHomePay();
+		employee.setEmployeeID(employeeID);
+		employee.setEmployeeName(employeeName);
+		employee.setSalesCode(salesCode);
+		employee.setSalesAmount(salesAmount);
+	
+		// error validation
 		
-		// TODO: Print Take Home Pay
-		
+		if(salesAmount < 1) {
+			Display.printHumanError(res, "Invalid Sales Amount!, should be at lest PHP 1.00");
+		}
+		else if(!employee.computeTakeHomePay()) {
+			Display.printHumanError(res, "Invalid Sales Code! Should only be the ones specified\n"
+					+ "(A, B, or C)");
+		}
+		else {
+		Display.printPayrollReceipt(res, employee);
+		}
 	}
 
 }
