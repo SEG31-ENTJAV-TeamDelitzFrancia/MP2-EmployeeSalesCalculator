@@ -5,20 +5,55 @@
     <welcome-file>userinput.html</welcome-file>
   </welcome-file-list>
   
-  <servlet>
-  	<servlet-name>SalesCalcServlet</servlet-name>
-  	<servlet-class>com.entjav.salescalc.controller.SalesCalcServlet</servlet-class>
-  	
-  	<init-param>
+  <context-param>
 		<param-name>ADDITIONAL_SALES_COMMISSION</param-name>
   		<param-value>0.075</param-value>
-  	</init-param>
+  </context-param>
+  <context-param>
+		<param-name>SALES_CODE_ALPHA_PERCENT</param-name>
+  		<param-value>0.5</param-value>
+  </context-param>
+  <context-param>
+		<param-name>SALES_CODE_ALPHA_ADDITIONAL</param-name>
+  		<param-value>100</param-value>
+  </context-param>
+  <context-param>
+		<param-name>SALES_CODE_BRAVO_PERCENT</param-name>
+  		<param-value>0.2</param-value>
+  </context-param>
+  <context-param>
+		<param-name>SALES_CODE_BRAVO_ADDITIONAL</param-name>
+  		<param-value>100</param-value>
+  </context-param>
+  <context-param>
+		<param-name>SALES_CODE_CHARLIE_PERCENT</param-name>
+  		<param-value>0.25</param-value>
+  </context-param>
+  <context-param>
+		<param-name>SALES_CODE_CHARLIE_ADDITIONAL</param-name>
+  		<param-value>50</param-value>
+  </context-param>
+  <context-param>
+		<param-name>MINIMUM_COMMISSION</param-name>
+  		<param-value>2500</param-value>
+  </context-param>
   
+  <servlet>
+  	<servlet-name>SalesCalcServlet</servlet-name>
+  	<servlet-class>com.entjav.salescalc.controller.SalesCalcServlet</servlet-class>  
+  </servlet>
+    <servlet>
+  	<servlet-name>DisplayPayrollServlet</servlet-name>
+  	<servlet-class>com.entjav.salescalc.view.DisplayPayrollServlet</servlet-class>  
   </servlet>
 
   <servlet-mapping>
   	<servlet-name>SalesCalcServlet</servlet-name>
   	<url-pattern>/salescalc</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+  	<servlet-name>DisplayPayrollServlet</servlet-name>
+  	<url-pattern>/payroll</url-pattern>
   </servlet-mapping>
   
 </web-app>

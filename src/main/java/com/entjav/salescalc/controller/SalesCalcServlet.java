@@ -3,6 +3,7 @@ package com.entjav.salescalc.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +33,7 @@ public class SalesCalcServlet extends HttpServlet {
 		double salesAmount  = Double.parseDouble(req.getParameter("salesAmount"));
 			
 		// Create Bean
-		EmployeeBean employee = new EmployeeBean(getServletConfig());
+		EmployeeBean employee = new EmployeeBean(getServletContext());
 		
 		employee.setEmployeeID(employeeID);
 		employee.setEmployeeName(employeeName);
@@ -49,7 +50,11 @@ public class SalesCalcServlet extends HttpServlet {
 					+ "(A, B, or C)");
 		}
 		else {
-		Display.printPayrollReceipt(res, employee);
+			// if all checks passed, set employee EmployeeBean and forward to 
+			// Display servlet
+			req.setAttribute("employeeData", employee);
+			RequestDispatcher dispatcher = req.getRequestDispatcher("payroll");
+			dispatcher.forward(req, res);
 		}
 	}
 

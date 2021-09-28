@@ -2,14 +2,14 @@ package com.entjav.salescalc.model;
 
 import java.io.Serializable;
 
-import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 
 public class EmployeeBean implements Serializable {
 
 	private static final long serialVersionUID = -1224771227435510280L;
 	
 	// -- init config values -- //
-	private ServletConfig conf;
+	private ServletContext conf;
 	
 	// -- user inputs -- //
 	private String employeeID;
@@ -33,7 +33,7 @@ public class EmployeeBean implements Serializable {
 		grossEarnedAmount = 0;
 		salesCommission = 0;
 	}
-	public EmployeeBean(ServletConfig config) {
+	public EmployeeBean(ServletContext config) {
 		this.conf = config;
 	}
 
@@ -92,6 +92,17 @@ public class EmployeeBean implements Serializable {
 	// -- -- //
 
 	// -- computation methods -- //
+	/* TODO: Set all hardcoded values to serverContext Values 
+	 * available context values:
+	 * SALES_CODE_ALPHA_PERCENT -> replace 0.5 with this
+	 * SALES_CODE_ALPHA_ADDITIONAL -> replace 175 with this
+	 * SALES_CODE_BRAVO_PERCENT -> replace 0.50 with this
+	 * SALES_CODE_BRAVO_ADDITIONAL -> replace 100 with this
+	 * SALES_CODE_CHARLIE_PERCENT -> replace 0.25 with this
+	 * SALE_CODE_CHARLIE_ADDITIONAL -> replace 50 with this
+	 * MINIMUM_COMMISSION -> replace 2500 with this
+	 * 
+	 * */
 	public void computeSalesCodeAlpha() {
 		grossEarnedAmount = 175 + (0.5 * salesAmount);
 	}
