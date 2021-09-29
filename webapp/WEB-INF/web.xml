@@ -10,6 +10,10 @@
   		<param-value>0.075</param-value>
   </context-param>
   <context-param>
+  		<param-name>SALES_CODE_ALPHA_ALIAS</param-name>
+  		<param-value>a</param-value>
+  </context-param>
+  <context-param>
 		<param-name>SALES_CODE_ALPHA_PERCENT</param-name>
   		<param-value>0.5</param-value>
   </context-param>
@@ -18,12 +22,20 @@
   		<param-value>100</param-value>
   </context-param>
   <context-param>
+  		<param-name>SALES_CODE_BRAVO_ALIAS</param-name>
+  		<param-value>b</param-value>
+  </context-param>
+  <context-param>
 		<param-name>SALES_CODE_BRAVO_PERCENT</param-name>
   		<param-value>0.2</param-value>
   </context-param>
   <context-param>
 		<param-name>SALES_CODE_BRAVO_ADDITIONAL</param-name>
   		<param-value>100</param-value>
+  </context-param>
+  <context-param>
+  		<param-name>SALES_CODE_CHARLIE_ALIAS</param-name>
+  		<param-value>c</param-value>
   </context-param>
   <context-param>
 		<param-name>SALES_CODE_CHARLIE_PERCENT</param-name>
@@ -51,7 +63,7 @@
   	<servlet-name>SalesCalcServlet</servlet-name>
   	<url-pattern>/salescalc</url-pattern>
   </servlet-mapping>
-    <servlet-mapping>
+  <servlet-mapping>
   	<servlet-name>DisplayPayrollServlet</servlet-name>
   	<url-pattern>/payroll</url-pattern>
   </servlet-mapping>

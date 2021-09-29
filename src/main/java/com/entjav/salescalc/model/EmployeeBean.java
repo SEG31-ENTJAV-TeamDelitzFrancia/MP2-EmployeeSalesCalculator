@@ -92,31 +92,23 @@ public class EmployeeBean implements Serializable {
 	// -- -- //
 
 	// -- computation methods -- //
-	/* TODO: Set all hardcoded values to serverContext Values 
-	 * available context values:
-	 * SALES_CODE_ALPHA_PERCENT -> replace 0.5 with this
-	 * SALES_CODE_ALPHA_ADDITIONAL -> replace 175 with this
-	 * SALES_CODE_BRAVO_PERCENT -> replace 0.50 with this
-	 * SALES_CODE_BRAVO_ADDITIONAL -> replace 100 with this
-	 * SALES_CODE_CHARLIE_PERCENT -> replace 0.25 with this
-	 * SALE_CODE_CHARLIE_ADDITIONAL -> replace 50 with this
-	 * MINIMUM_COMMISSION -> replace 2500 with this
-	 * 
-	 * */
 	public void computeSalesCodeAlpha() {
-		grossEarnedAmount = 175 + (0.5 * salesAmount);
+		grossEarnedAmount = Double.parseDouble(conf.getInitParameter("SALES_CODE_ALPHA_ADDITIONAL"))
+				+ (Double.parseDouble(conf.getInitParameter("SALES_CODE_ALPHA_PERCENT")) * salesAmount);
 	}
 	
 	public void computeSalesCodeBravo() {
-		grossEarnedAmount = 100 + (0.2 * salesAmount);
+		grossEarnedAmount = Double.parseDouble(conf.getInitParameter("SALES_CODE_BRAVO_ADDITIONAL")) 
+				+ (Double.parseDouble(conf.getInitParameter("SALES_CODE_BRAVO_PERCENT")) * salesAmount);
 	}
 	
 	public void computeSalesCodeCharlie() {
-		grossEarnedAmount = 50 + (0.25 * salesAmount);
+		grossEarnedAmount = Double.parseDouble(conf.getInitParameter("SALES_CODE_CHARLIE_ADDITIONAL")) 
+				+ (Double.parseDouble(conf.getInitParameter("SALES_CODE_CHARLIE_PERCENT")) * salesAmount);
 	}
 	
 	public void computeSalesAdditionalCommisson() {
-		if (salesAmount > 2500) {
+		if (salesAmount > Double.parseDouble(conf.getInitParameter("MINIMUM_COMMISSION"))) {
 			salesCommission = Double.parseDouble(conf.getInitParameter("ADDITIONAL_SALES_COMMISSION")) * salesAmount;
 		}
 	}
@@ -125,11 +117,11 @@ public class EmployeeBean implements Serializable {
 		
 		computeSalesAdditionalCommisson();
 		
-		if(salesCode.equalsIgnoreCase("a")) 
+		if(salesCode.equalsIgnoreCase(conf.getInitParameter("SALES_CODE_ALPHA_ALIAS"))) 
 				computeSalesCodeAlpha();
-		else if(salesCode.equalsIgnoreCase("b"))
+		else if(salesCode.equalsIgnoreCase(conf.getInitParameter("SALES_CODE_BRAVO_ALIAS")))
 				computeSalesCodeBravo();
-		else if(salesCode.equalsIgnoreCase("c"))
+		else if(salesCode.equalsIgnoreCase(conf.getInitParameter("SALES_CODE_CHARLIE_ALIAS")))
 				computeSalesCodeCharlie();
 		else
 			return false;
@@ -139,4 +131,3 @@ public class EmployeeBean implements Serializable {
 		
 	}
 }
-//this is a temporary comment created for testing purposes
