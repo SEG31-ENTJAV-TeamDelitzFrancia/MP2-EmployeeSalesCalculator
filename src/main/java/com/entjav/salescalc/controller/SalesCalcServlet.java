@@ -57,5 +57,5 @@ public class SalesCalcServlet extends HttpServlet {
 			dispatcher.forward(req, res);
 		}
 	}
-
 }
+//this is a temporary comment created for testing purposes
