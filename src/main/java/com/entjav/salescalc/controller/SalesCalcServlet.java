@@ -10,8 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.entjav.salescalc.model.EmployeeBean;
-import com.entjav.salescalc.view.Display;
+import com.entjav.salescalc.util.PrintHumanError;
 
+
+/** 
+ * Servlet that only handles sales calulation and data gathering
+ * */
 public class SalesCalcServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -20,13 +24,8 @@ public class SalesCalcServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-	
 		
-		// Init MIME Type
-		res.setContentType("text/html");
-		
-		// Data Extraction
-		
+		// Data Extraction		
 		String employeeID = req.getParameter("employeeID");
 		String employeeName = req.getParameter("employeeName");
 		String salesCode = req.getParameter("salesCode");
@@ -43,19 +42,21 @@ public class SalesCalcServlet extends HttpServlet {
 		// error validation
 		
 		if(salesAmount < 1) {
-			Display.printHumanError(res, "Invalid Sales Amount!, should be at lest PHP 1.00");
+			PrintHumanError.printCustomResponse(res, "Invalid Sales Amount!, should be at lest PHP 1.00");
 		}
 		else if(!employee.computeTakeHomePay()) {
-			Display.printHumanError(res, "Invalid Sales Code! Should only be the ones specified\n"
+			PrintHumanError.printCustomResponse(res, "Invalid Sales Code! Should only be the ones specified\n"
 					+ "(A, B, or C)");
 		}
 		else {
 			// if all checks passed, set employee EmployeeBean and forward to 
 			// Display servlet
 			req.setAttribute("employeeData", employee);
-			RequestDispatcher dispatcher = req.getRequestDispatcher("payroll");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/payroll");
 			dispatcher.forward(req, res);
 		}
 	}
 
+	
+	
 }
